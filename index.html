@@ -80,8 +80,12 @@ map.on('load', function () {
     });
 
     map.on('click', 'housepoints', function (e) {
+
         var coordinates = e.features[0].geometry.coordinates.slice();
         var description = e.features[0].properties.A10;
+        var housingcount = e.features[0].properties.A16;
+        var housingcountstr = housingcount.toString();
+        var popupcontent = description + "" + "(" + housingcountstr + ")";
 
         // Ensure that if the map is zoomed out such that multiple
         // copies of the feature are visible, the popup appears
@@ -92,7 +96,7 @@ map.on('load', function () {
 
         new mapboxgl.Popup()
             .setLngLat(coordinates)
-            .setText(description)
+            .setText(popupcontent)
             .addTo(map);
     });
 
